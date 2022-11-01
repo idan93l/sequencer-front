@@ -1,23 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { io } from "socket.io-client";
+import PlayerProvider from "./components/context/PlayerProvider";
+import Sequencer from "./components/Sequencer/Sequencer";
+import Loader from "./components/Loader/Loader";
+import Rotate from "./components/Rotate/Rotate";
+import "./App.css";
+
+const socket = io.connect(
+  process.env.NODE_ENV === "production" ? "/" : "http://localhost:3001"
+);
 
 function App() {
+  const [orientation, setOrientation] = useState(window.screen.orientation.type);
+
+  useEffect(() => {
+    const handleOrientationChange = () =>
+      setOrientation(window.screen.orientation.type);
+    window.addEventListener("orientationchange", handleOrientationChange);
+    return () =>
+      window.removeEventListener("orientationchange", handleOrientationChange);
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <PlayerProvider>
+                {({ player }) => {
+                  if (!player) {
+                    return <Loader />;
+                  }
+                  return orientation === "portrait-primary" ? (
+                    <Rotate />
+                  ) : (
+                    <Sequencer player={player} socket={socket} />
+                  );
+                }}
+              </PlayerProvider>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
