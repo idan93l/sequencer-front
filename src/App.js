@@ -7,9 +7,11 @@ import Loader from "./components/Loader/Loader";
 import Rotate from "./components/Rotate/Rotate";
 import "./App.css";
 
-const socket = io.connect(
-  process.env.NODE_ENV === "production" ? "/" : "http://localhost:3001"
-);
+// const socket = io.connect(
+//   process.env.NODE_ENV === "production" ? "/" : "http://localhost:3001"
+// );
+
+const socket = io.connect("https://sequencer-api.onrender.com");
 
 function App() {
   const [orientation, setOrientation] = useState(window.screen.orientation.type);
