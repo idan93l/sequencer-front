@@ -21,7 +21,7 @@ const Button = styled.button`
   }
 `;
 
-function Instructions({ onMouseEnter, onMouseLeave }) {
+function InstructionsButton({ onMouseEnter, onMouseLeave }) {
   return (
     <>
       <Button onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
@@ -31,4 +31,4 @@ function Instructions({ onMouseEnter, onMouseLeave }) {
   );
 }
 
-export default Instructions;
+export default InstructionsButton;

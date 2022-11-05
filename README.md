@@ -98,5 +98,5 @@ If you have any feedback, please reach out to us at erik.chukoltyansky@gmail.com
 
 **Client:** VanillaJS, CSS, HTML, React, Styled-Components, responsive design, ToneJS, React-icons
 
-**Server:** Node, Socket.io
+**Server:** Node, Express, Socket.io
 

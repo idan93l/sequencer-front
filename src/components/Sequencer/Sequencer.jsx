@@ -10,11 +10,11 @@ import PowerOn from "../buttons/PowerOn";
 import ClearAllButton from "../buttons/ClearAllButton";
 import PowerOff from "../buttons/PowerOff";
 import "./Sequencer.css";
-import LeftIconBar from "../LeftIconBar/LeftIconBar";
 import RightBar from "../RightBar/RightBar";
-import Instructions from "../buttons/Instructions";
-
-// const deepCopyInitialState = JSON.parse(JSON.stringify(initialState));
+import InstructionsButton from "../buttons/InstructionsButton";
+import Instructions from "../Instructions/Instructions";
+import Icons from "../LeftBar/Icons";
+import Braces from "../LeftBar/Braces";
 
 function Sequencer({ player, socket }) {
   const [sequence, setSequence] = useState(initialState);
@@ -173,37 +173,20 @@ function Sequencer({ player, socket }) {
           onChange={handleBPM}
         />
 
-        <Instructions
+        <InstructionsButton
           onMouseEnter={() => setIsShown(true)}
           onMouseLeave={() => setIsShown(false)}
         />
       </NavBar>
       <RightBar />
-      <LeftIconBar
-      />
+      <Icons/>
+      <Braces />
       <Grid
         sequence={sequence}
         handleToggleStep={handleToggleStep}
         handleStopPlaying={handleStopPlaying}
       />
-      {isShown && (
-        <div className="instructions">
-          <h1>Instructions</h1>
-          <ul>
-            <li>
-              First thing! Share it with friends and play music simultaneously
-            </li>
-            <li>*Click on a cell to trigger a sound</li>
-            <li>*Click the play button to start the sequencer</li>
-            <li>*Click the stop button to stop the sequencer</li>
-            <li>*Click the clear all button to clear the sequencer</li>
-            <li>*Use the volume slider to adjust the volume</li>
-            <li>*Use the BPM slider to adjust the tempo</li>
-            <li>*Left side shows the instruments being played</li>
-            <li>*Right side shows the notes being played</li>
-          </ul>
-        </div>
-      )}
+      {isShown && <Instructions />}
     </div>
   );
 }

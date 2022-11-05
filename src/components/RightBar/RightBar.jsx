@@ -4,7 +4,7 @@ import styled from "styled-components";
 export default function RightBar() {
   const Bar = styled.div`
     height: calc(100vh - 75px);
-    left: calc(100vw - 12vw);
+    left: calc(100vw - 9.5vw);
     display: flex;
     justify-content: space-around;
     align-items: center;
