@@ -42,7 +42,7 @@ https://sequencer.onrender.com/
 To deploy this project run
 
 ```bash
-  npm run dev
+  npm start
 ```
 
 
@@ -96,7 +96,7 @@ If you have any feedback, please reach out to us at erik.chukoltyansky@gmail.com
 
 ## Tech Stack
 
-**Client:** React, Styled-Components, VanillaJS, CSS, HTML, responsive design
+**Client:** VanillaJS, CSS, HTML, React, Styled-Components, responsive design, ToneJS, React-icons
 
 **Server:** Node, Socket.io
 
