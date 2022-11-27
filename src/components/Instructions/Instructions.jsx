@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  height: 65vh;
+  height: 67vh;
   width: 60vw;
   display: flex;
   justify-content: space-evenly;
@@ -45,20 +45,19 @@ const Ul = styled.ul`
 export default function Instructions() {
   return (
     <Container>
-    <H1>Instructions</H1>
-    <Ul>
-      <li>
-        First thing! Share it with friends and play music simultaneously
-      </li>
-      <li>*Click on a cell to trigger a sound</li>
-      <li>*Click the play/pause button to control the sequencer</li>
-      <li>*Click the speaker to turn on/off the sound</li>
-      <li>*Click the trash can to clear the sequencer</li>
-      <li>*Use the volume slider to adjust the volume</li>
-      <li>*Use the BPM slider to adjust the tempo</li>
-      <li>*Left side shows the instruments being played</li>
-      <li>*Right side shows the notes being played</li>
-    </Ul>
-  </Container>
+      <H1>Instructions</H1>
+      <Ul>
+        <li style={{textAlign: 'center', fontSize: '3.5vh', color:'#e5ff00'}}>Play music together in real time!</li>
+        <li>*Click on a cell to activate a sound</li>
+        <li>*Click the play/pause button to control the sequencer</li>
+        <li>*Click the stop button to stop("rewind") the sequencer</li>
+        <li>*Click the speaker to turn on/off the sound</li>
+        <li>*Click the trash can to clear the sequencer</li>
+        <li>*Use the volume slider to adjust the volume</li>
+        <li>*Use the BPM slider to adjust the tempo</li>
+        <li>*Left side shows the instruments being played</li>
+        <li>*Right side shows the notes being played</li>
+      </Ul>
+    </Container>
   );
 }

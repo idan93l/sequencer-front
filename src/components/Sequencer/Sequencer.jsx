@@ -3,7 +3,7 @@ import { steps, lineMap, initialState } from "./initial";
 import Grid from "./Grid";
 import NavBar from "../NavBar/NavBar";
 import PlayButton from "../buttons/PlayButton";
-// import StopButton from "../buttons/StopButton";
+import StopButton from "../buttons/StopButton";
 import Volume from "../sliders/Volume";
 import BPM from "../sliders/BPM";
 import PowerOn from "../buttons/PowerOn";
@@ -22,19 +22,26 @@ function Sequencer({ player, socket }) {
   const [currentStep, setCurrentStep] = useState(0);
   const [sequencerVolume, setSequencerVolume] = useState(-12);
   const [BPMcount, setBPMCount] = useState(100);
-  const [stopped, setStopped] = useState(false);
   const [isShown, setIsShown] = useState(false);
 
   const resetSequence = () => {
     for (let i = 0; i < sequence.length; i++) {
       for (let j = 0; j < sequence[i].length; j++) {
-        const { triggered, activated } = sequence[i][j];
-        if (triggered || activated) {
           sequence[i][j] = { activated: false, triggered: false };
-        }
       }
     }
     setSequence(sequence);
+  };
+
+  const stopSequence = () => {
+    const sequenceCopy = [...sequence];
+    for (let i = 0; i < sequenceCopy.length; i++) {
+      for (let j = 0; j < sequenceCopy[i].length; j++) {
+        const { activated } = sequenceCopy[i][j];
+          sequenceCopy[i][j] = {activated, triggered: false };
+      }
+    }
+    setSequence(sequenceCopy);
   };
 
   const toggleStep = (line, step) => {
@@ -48,7 +55,7 @@ function Sequencer({ player, socket }) {
     for (let i = 0; i < sequence.length; i++) {
       for (let j = 0; j < sequence[i].length; j++) {
         const { triggered, activated } = sequence[i][j];
-        sequence[i][j] = { activated, triggered: j === time };
+        sequence[i][j] = { triggered: j === time, activated };
         if (triggered && activated) {
           player.volume.value = sequencerVolume;
           player.player(lineMap[i]).start();
@@ -66,8 +73,8 @@ function Sequencer({ player, socket }) {
     socket.emit("switch", { tog: switcher });
   };
 
-  const handleStopPlaying = (switcher) => {
-    socket.emit("rewind", { tog: switcher });
+  const handleStopPlaying = () => {
+    socket.emit("rewind");
   };
 
   const handleReset = () => {
@@ -96,16 +103,11 @@ function Sequencer({ player, socket }) {
     };
     const playPauseMessage = (m) => {
       setPlaying(m.tog);
-      if (stopped) {
-        setCurrentStep(0);
-        nextStep(currentStep);
-      }
-      setStopped(false);
-      // console.log(playing);
     };
-    const stopMessage = (m) => {
+    const stopMessage = () => {
+      stopSequence();
+      setCurrentStep(0);
       setPlaying(false);
-      setStopped(m.tog);
     };
     const resetMessage = () => {
       resetSequence();
@@ -135,7 +137,7 @@ function Sequencer({ player, socket }) {
     return () => {
       clearTimeout(timer);
     };
-  }, [currentStep, playing, BPMcount, sequence, stopped]);
+  }, [currentStep, playing, BPMcount, sequence]);
 
   return (
     <div className="Sequencer">
@@ -145,7 +147,7 @@ function Sequencer({ player, socket }) {
           onClick={() => handleSetPlaying(!playing)}
         />
 
-        {/* <StopButton onClick={() => handleStopPlaying(true)} /> */}
+        <StopButton onClick={handleStopPlaying} />
 
         {sequencerVolume === -60 ? (
           <PowerOff onClick={handlePowerOff} />
@@ -191,4 +193,4 @@ function Sequencer({ player, socket }) {
   );
 }
 
-export default React.memo(Sequencer);
+export default Sequencer;

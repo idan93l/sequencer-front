@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FaStop } from "react-icons/fa";
-import { CiStop1 } from "react-icons/ci";
+import { IoStopOutline } from "react-icons/io5";
 
 const Style = {
   StopButton: styled.button`
@@ -21,7 +20,7 @@ const Style = {
 
 const StopButton = ({ onClick }) => (
   <Style.StopButton onClick={onClick}>
-    <CiStop1 />
+    <IoStopOutline />
   </Style.StopButton>
 );
 
