@@ -22,8 +22,6 @@ const Style = {
 
 const PowerOn = ({ onClick }) => (
   <Style.PowerOn onClick={onClick}>
-    {/* {<HiOutlineSpeakerWave />} */}
-    {/* K */}
   <IoVolumeHighOutline />
   </Style.PowerOn>
 );

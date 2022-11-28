@@ -22,8 +22,6 @@ filter: drop-shadow(0px 0px 1px #922c2c);
 
 const PowerOff = ({ onClick }) => (
   <Style.PowerOff onClick={onClick}>
-    {/* <HiOutlineSpeakerXMark /> */}
-    {/* J */}
     <IoVolumeMuteOutline />
   </Style.PowerOff>
 );

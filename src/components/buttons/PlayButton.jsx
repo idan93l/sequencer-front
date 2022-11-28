@@ -37,12 +37,10 @@ export default function PlayButton({ playing, onClick }) {
       {playing ? (
         <Pause onClick={onClick}>
           <IoPauseOutline />
-          {/* I */}
         </Pause>
       ) : (
         <Play onClick={onClick}>
           <IoPlayOutline />
-          {/* O */}
         </Play>
       )}
     </>

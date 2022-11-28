@@ -21,7 +21,6 @@ filter: drop-shadow(0px 0px 1px #b64900);
 const ClearAllButton = ({ onClick }) => (
   <Style.ClearAllButton onClick={onClick}>
     <IoTrashOutline />
-    {/* Q */}
   </Style.ClearAllButton>
 );
 
