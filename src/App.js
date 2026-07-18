@@ -7,12 +7,30 @@ import Loader from "./components/Loader/Loader";
 import Rotate from "./components/Rotate/Rotate";
 import "./App.css";
 
-const socket = io.connect(
-  process.env.NODE_ENV === "production" ? "https://sequencer-api.onrender.com" : "http://localhost:3001"
-);
+const socketUrl =
+  process.env.REACT_APP_SOCKET_URL ||
+  (process.env.NODE_ENV === "production"
+    ? "https://sequencer-api.onrender.com"
+    : "http://localhost:3001");
+
+const socket = io(socketUrl);
 
 function App() {
   const [orientation, setOrientation] = useState(window.screen.orientation.type);
+  const [isConnected, setIsConnected] = useState(socket.connected);
+
+  useEffect(() => {
+    const handleConnect = () => setIsConnected(true);
+    const handleDisconnect = () => setIsConnected(false);
+
+    socket.on("connect", handleConnect);
+    socket.on("disconnect", handleDisconnect);
+
+    return () => {
+      socket.off("connect", handleConnect);
+      socket.off("disconnect", handleDisconnect);
+    };
+  }, []);
 
   useEffect(() => {
     const handleOrientationChange = () =>
@@ -37,7 +55,17 @@ function App() {
                   return orientation === "portrait-primary" ? (
                     <Rotate />
                   ) : (
-                    <Sequencer player={player} socket={socket} />
+                    <>
+                      <div
+                        className={`connection-status ${
+                          isConnected ? "connected" : "connecting"
+                        }`}
+                        role="status"
+                      >
+                        {isConnected ? "Live collaboration connected" : "Connecting to collaboration server…"}
+                      </div>
+                      <Sequencer player={player} socket={socket} />
+                    </>
                   );
                 }}
               </PlayerProvider>

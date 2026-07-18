@@ -10,6 +10,27 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
 
+.connection-status {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  z-index: 1000;
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: #fff;
+  font: 600 12px/1.2 Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.connection-status.connected {
+  background: #267a48;
+}
+
+.connection-status.connecting {
+  background: #9b6514;
+}
+
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
